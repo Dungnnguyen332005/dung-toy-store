@@ -3,52 +3,94 @@ import "./App.css";
 
 function App() {
   const [toyList, setToyList] = useState([]);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+
   useEffect(() => {
     fetch("http://localhost:5000/api/toys")
       .then((res) => res.json())
       .then((data) => {
         setToyList(data);
       })
-      .catch((err) => console.log(`Lỗi kết nối rồi ${err}`));
+      .catch((err) => console.log(`Lỗi kết nối tại ${err}`));
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/api/toys/${id}`, { method: "DELETE" })
+    fetch("http://localhost:5000/api/toys", { method: "DELETE" })
       .then((res) => res.json())
       .then(() => {
-        const danhSachMoi = toyList.filter((item) => item.id !== id);
-        setToyList(danhSachMoi);
-      })
-      .catch((err) => console.log("Lỗi khi xóa" + err));
+        const newToyList = toyList.filter((id) => toyList.id !== id);
+        setToyList(newToyList);
+      });
+  };
+
+  const handleAdd = () => {
+    fetch("http://localhost:5000/api/toys", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, price }),
+    })
+      .then((res) => res.json())
+      .then((newItem) => {
+        setToyList([...toyList, newItem]);
+        setName("");
+        setPrice("");
+      });
   };
 
   return (
     <div>
-      <h1>Cửa hàng đồ chơi Thu Quý</h1>
+      <div className="add-toy-form">
+        <input
+          type="text"
+          placeholder="Nhập vào tên sản phẩm "
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <input
+          type="number"
+          placeholder="Nhập vào giá sản phẩm "
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <button onClick={handleAdd}>Thêm đồ chơi mới</button>
+      </div>
+
       <div
+        className="toyList"
         style={{
           display: "flex",
+          backgroundColor: "white",
           flexDirection: "row",
-          flexWrap: "wrap",
           gap: "15px",
           justifyContent: "center",
-          padding: "20px",
+          margin: "100px",
         }}
       >
-        {toyList.map((toys) => (
-          <div key={toys.id} className="toy-card">
-            <img src={toys.img} width="150" />
-            <h3>{toys.name}</h3>
-            <p>Giá:{toys.price}</p>
+        {toyList.map((item) => (
+          <div
+            className="toy-card"
+            style={{
+              border: "1px solid red",
+              width: "200px",
+              borderRadius: "8px",
+              textAlign: "center",
+              cursor: "pointer",
+            }}
+          >
+            <img src={item.img} alt={item.name} />
+            <h3>Tên sản phẩm:{item.name}</h3>
+            <p style={{ color: "red" }}>Giá sản phẩm:{item.price}</p>
             <button
-              onClick={() => handleDelete(toys.id)}
               style={{
                 backgroundColor: "red",
                 color: "white",
                 cursor: "pointer",
               }}
+              onClick={() => handleDelete(item.id)}
             >
-              Xóa món này
+              Xóa
             </button>
           </div>
         ))}

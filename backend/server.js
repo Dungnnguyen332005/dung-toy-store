@@ -1,45 +1,54 @@
-const express = require("express"); //Dùng thư viện express
-const cors = require("cors"); //Dùng để cho phép be và fe giao tiếp truy cập vào nhau
+const Express = require("express");
+const Cors = require("cors");
 require("dotenv").config();
 
-const app = express();
+const App = Express();
 const PORT = 5000;
-
-//MiddleWare
-app.use(cors()); //Giúp React 3000 truy cập được vào Node 5000
-app.use(express.json()); //Để server hiểu được dữ liệu Json
-
-// Dữ liệu đồ chơi mẫu cho cửa hàng Thu Quý
+App.use(Cors()); //Dùng để giúp fe giao tiếp be
+App.use(Express.json()); //Giúp serve hiểu được dữ liệu dạng Json
 let toys = [
   {
     id: 1,
-    name: "Siêu nhân Gao",
-    price: 250000,
-    img: "https://vcdn.tikicdn.com/ts/product/7d/53/56/a87a7493a74996969567956.jpg",
+    img: "img1",
+    name: "Lego Ninjago",
+    price: 350000,
   },
   {
     id: 2,
-    name: "Lego City",
-    price: 500000,
-    img: "https://vcdn.tikicdn.com/ts/product/2c/3e/5b/567895678956789.jpg",
+    img: "img2",
+    name: "Lego Chima",
+    price: 450000,
   },
   {
     id: 3,
-    name: "Lego Ninjago",
-    price: 500000,
-    img: "https://vcdn.tikicdn.com/ts/product/2c/3e/5b/567895678956789.jpg",
+    img: "img3",
+    name: "Lego Nexo knights",
+    price: 550000,
   },
 ];
-app.get("/api/toys", (req, res) => {
+
+App.get("/api/toys", (req, res) => {
   res.json(toys);
 });
 
-app.delete("/api/toys/:id", (req, res) => {
+App.delete("/api/toys", (req, res) => {
   const { id } = req.params;
-  toys = toys.filter((item) => item.id !== parseInt(id));
-  res.json({ message: "Xóa dữ liệu thành công " + id });
+  toys = toys.filter((item) => item.id != id);
+  res.json({ message: "Xóa dữ liệu thành công" + id });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server đang chạy tại cổng http://localhost:${PORT}`);
+App.post("/api/toys", (req, res) => {
+  const { name, price } = req.body;
+
+  const newToy = {
+    id: Date.now(),
+    name: name,
+    price: Number(price),
+  };
+  toys.push(newToy);
+  res.json(newToy);
+});
+
+App.listen(PORT, () => {
+  console.log(`Đang chạy server tại https:localhost:${PORT}`);
 });

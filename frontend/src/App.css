@@ -36,31 +36,39 @@
     transform: rotate(360deg);
   }
 }
-
-/* App.css */
-/* Định nghĩa lớp cho thẻ đồ chơi */
-.toy-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 200px;
-  padding: 10px;
-  background-color: #fff;
-
-  /* Lấy cái bóng mặc định Dũng vừa học */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-  /* BÍ KÍP: Hiệu ứng chuyển động mượt mà */
-  transition: all 0.3s ease-in-out;
+.add-toy-form {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Bóng đổ cho sang */
+  margin-bottom: 30px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-/* Hiệu ứng khi di chuột VÀO (hover) */
-.toy-card:hover {
-  /* 1. Bóng đổ đậm hơn và lan rộng hơn -> tạo cảm giác nổi cao */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.add-toy-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
 
-  /* 2. Dịch chuyển nhẹ lên trên 5px */
-  transform: translateY(-5px);
+.add-toy-form input:focus {
+  border-color: #007bff; /* Đổi màu viền khi nhấn vào */
+}
 
-  /* 3. (Tùy chọn) Phóng to nhẹ 2% */
-  /* transform: translateY(-5px) scale(1.02); */
+.add-toy-form button {
+  background-color: #28a745; /* Màu xanh lá cho tươi */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-toy-form button:hover {
+  background-color: #218838;
+  transform: scale(1.05); /* Phóng to nhẹ khi hover */
 }

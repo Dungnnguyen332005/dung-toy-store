@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
   const [toyList, setToyList] = useState([]);
@@ -24,12 +25,18 @@ function App() {
   return (
     <div>
       <h1>Cửa hàng đồ chơi Thu Quý</h1>
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "15px",
+          justifyContent: "center",
+          padding: "20px",
+        }}
+      >
         {toyList.map((toys) => (
-          <div
-            key={toys.id}
-            style={{ border: "1px solid #ccc", padding: "10px" }}
-          >
+          <div key={toys.id} className="toy-card">
             <img src={toys.img} width="150" />
             <h3>{toys.name}</h3>
             <p>Giá:{toys.price}</p>

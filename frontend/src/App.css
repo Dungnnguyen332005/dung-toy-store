@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+/* Định nghĩa lớp cho thẻ đồ chơi */
+.toy-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 200px;
+  padding: 10px;
+  background-color: #fff;
+
+  /* Lấy cái bóng mặc định Dũng vừa học */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  /* BÍ KÍP: Hiệu ứng chuyển động mượt mà */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng khi di chuột VÀO (hover) */
+.toy-card:hover {
+  /* 1. Bóng đổ đậm hơn và lan rộng hơn -> tạo cảm giác nổi cao */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+  /* 2. Dịch chuyển nhẹ lên trên 5px */
+  transform: translateY(-5px);
+
+  /* 3. (Tùy chọn) Phóng to nhẹ 2% */
+  /* transform: translateY(-5px) scale(1.02); */
+}

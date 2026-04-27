@@ -49,6 +49,19 @@ App.post("/api/toys", (req, res) => {
   res.json(newToy);
 });
 
+App.put("/api/toys", (req, res) => {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  const index = toys.findIndex((item) => item.id == id);
+
+  if (index != -1) {
+    toys[index] = { ...toys[index], name, price: Number(price) };
+    res.json(toys[index]);
+  } else {
+    res.status(404).json({ message: "Không tìm thấy món đồ chơi này" });
+  }
+});
+
 App.listen(PORT, () => {
   console.log(`Đang chạy server tại https:localhost:${PORT}`);
 });

@@ -72,3 +72,126 @@
   background-color: #218838;
   transform: scale(1.05); /* Phóng to nhẹ khi hover */
 }
+/* Container bao quanh tất cả các Card sản phẩm */
+.toy-grid {
+  display: grid;
+  /* Chia làm 4 cột đều nhau, mỗi cột chiếm 1 phần (fr) */
+  grid-template-columns: repeat(4, 1fr);
+  /* Khoảng cách giữa các ô là 20px */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Để website đẹp trên cả điện thoại (Responsive) */
+@media (max-width: 1024px) {
+  .toy-grid {
+    grid-template-columns: repeat(3, 1fr); /* Máy tính bảng hiện 3 cột */
+  }
+}
+
+@media (max-width: 768px) {
+  .toy-grid {
+    grid-template-columns: repeat(2, 1fr); /* Điện thoại to hiện 2 cột */
+  }
+}
+
+@media (max-width: 480px) {
+  .toy-grid {
+    grid-template-columns: 1fr; /* Điện thoại nhỏ hiện 1 cột duy nhất */
+  }
+}
+/* CSS cho component ToyRow */
+/* Tổng thể container chứa bảng */
+.admin-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Style cho cái bảng */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Bỏ khoảng cách giữa các viền */
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Bóng đổ nhẹ cho bảng */
+  border-radius: 10px;
+  overflow: hidden; /* Để bo góc bảng mượt hơn */
+}
+
+/* Header của bảng */
+thead {
+  background-color: #343a40; /* Màu tối cho sang */
+  color: white;
+}
+
+th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+/* Style cho từng dòng ToyRow */
+tr {
+  transition: all 0.3s ease; /* Hiệu ứng mượt khi di chuột vào */
+  border-bottom: 1px solid #eee;
+}
+
+/* Hiệu ứng kẻ sọc: dòng chẵn màu khác dòng lẻ */
+tbody tr:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+/* Khi di chuột vào một dòng thì sáng lên */
+tbody tr:hover {
+  background-color: #f1f7ff;
+  transform: scale(1.002); /* Cảm giác dòng đó nổi lên tí xíu */
+}
+
+td {
+  padding: 12px 15px;
+  vertical-align: middle; /* Căn giữa nội dung theo chiều dọc */
+  color: #444;
+}
+
+/* Style cho ảnh trong bảng */
+td img {
+  border: 2px solid #eee;
+  transition: transform 0.2s;
+}
+
+td img:hover {
+  transform: scale(2); /* Di chuột vào ảnh nó to lên cho dễ nhìn */
+  position: relative;
+  z-index: 10;
+}
+
+/* Nút bấm */
+.btn-edit {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}

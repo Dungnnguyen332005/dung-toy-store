@@ -22,9 +22,9 @@ function HomePage() {
       {isLoading ? (
         <p>Đang tải dữ liệu...</p>
       ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
-          {toyList.map((item) => (
-            <ToyCard key={item.id} item={item} />
+        <div className="toy-grid">
+          {toyList.map((toy) => (
+            <ToyCard key={toy.id} item={toy} />
           ))}
         </div>
       )}

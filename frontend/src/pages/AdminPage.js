@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ToyCard from "../components/ToyCard";
+import ToyRow from "../components/ToyRow";
 
 function AdminPage() {
   const [toyList, setToyList] = useState([]);
@@ -11,43 +12,37 @@ function AdminPage() {
   // Bê toàn bộ các hàm useEffect, handleDelete, handleAdd, handleSubmit vào đây...
   //Dùng để kết nối với be
   useEffect(() => {
-    setIsLoading(true); // Bắt đầu lấy dữ liệu thì hiện Loading
     fetch("http://localhost:5000/api/toys")
       .then((res) => res.json())
       .then((data) => {
         setToyList(data);
-        setIsLoading(false); // Xong rồi thì tắt Loading
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
       });
   }, []);
 
   //Hàm xóa sản phẩm
   const handleDelete = (id) => {
-    if (window.confirm("Dũng có chắc muốn xóa món này không?")) {
-      setIsLoading(true); // Đang xóa cũng hiện Loading
-      fetch(`http://localhost:5000/api/toys/${id}`, { method: "DELETE" }).then(
-        (res) => {
-          if (res.ok) {
-            setToyList(toyList.filter((item) => item.id !== id));
-          }
-          setIsLoading(false);
-        },
-      );
-    }
+    fetch(`http://localhost:5000/api/toys/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then(() => {
+        const newList = toyList.filter((item) => item.id !== id);
+        setToyList(newList);
+      });
   };
+
   //Hàm thêm sản phẩm
   const handleAdd = () => {
+    if (name.trim() === "" || price <= 0) {
+      alert("Không được để trống tên và giá không được nhỏ hơn hoặc = 0");
+      return;
+    }
     fetch("http://localhost:5000/api/toys", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, price }),
     })
       .then((res) => res.json())
-      .then((newItem) => {
-        setToyList([...toyList, newItem]);
+      .then((data) => {
+        setToyList([...toyList, data]);
         setName("");
         setPrice("");
       });
@@ -135,20 +130,25 @@ function AdminPage() {
       {isLoading && toyList.length === 0 ? (
         <p>Đang tải dữ liệu kho...</p>
       ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
-          {toyList.map((item) => (
-            <ToyCard
-              key={item.id}
-              item={item}
-              onDelete={handleDelete}
-              onEdit={(item) => {
-                setEditingID(item.id);
-                setName(item.name);
-                setPrice(item.price);
-              }}
-            />
-          ))}
-        </div>
+        <table>
+          <thead>
+            <th>Mã ID</th>
+            <th>Tên sản phẩm</th>
+            <th> Ảnh sản phẩm </th>
+            <th>Gía</th>
+            <th>Thao tác</th>
+          </thead>
+          <tbody>
+            {toyList.map((toy) => (
+              <ToyRow
+                key={toy.id}
+                item={toy}
+                onEdit={handleClick}
+                onDelete={handleDelete}
+              />
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

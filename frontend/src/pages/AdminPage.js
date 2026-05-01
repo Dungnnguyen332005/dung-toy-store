@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ToyCard from "../components/ToyCard";
+import ToyCard from "../components/ToyCard/ToyCard";
 import ToyRow from "../components/ToyRow";
 
 function AdminPage() {

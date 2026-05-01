@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ToyCard from "../components/ToyCard";
+import ToyCard from "../components/ToyCard/ToyCard";
 
 function HomePage() {
   const [toyList, setToyList] = useState([]);
